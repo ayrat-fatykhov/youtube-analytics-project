@@ -21,28 +21,36 @@ class Channel:
         self.video_count = statistics["videoCount"]
         self.channel_views = statistics["viewCount"]
 
-    def __str__(self):
-        return f"{self.title} ({self.url}"
+    def __str__(self) -> str:
+        """Возвращает название и ссылку на канал по шаблону"""
+        return f"{self.title} ({self.url})"
 
-    def __add__(self, other):
+    def __add__(self, other) -> int:
+        """Возвращает результат сложения количества подписчиков"""
         return int(self.channel_subscribers) + int(other.channel_subscribers)
 
-    def __sub__(self, other):
+    def __sub__(self, other) -> int:
+        """Возвращает результат вычитания количества подписчиков"""
         return int(self.channel_subscribers) - int(other.channel_subscribers)
 
-    def __gt__(self, other):
+    def __gt__(self, other) -> bool:
+        """Возвращает результат сравнения (меньше) количества подписчиков"""
         return int(self.channel_subscribers) > int(other.channel_subscribers)
 
-    def __ge__(self, other):
+    def __ge__(self, other) -> bool:
+        """Возвращает результат сравнения (меньше или равно) количества подписчиков"""
         return int(self.channel_subscribers) >= int(other.channel_subscribers)
 
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:
+        """Возвращает результат сравнения (больше) количества подписчиков"""
         return int(self.channel_subscribers) < int(other.channel_subscribers)
 
-    def __le__(self, other):
+    def __le__(self, other) -> bool:
+        """Возвращает результат сравнения (больше или равно) количества подписчиков"""
         return int(self.channel_subscribers) <= int(other.channel_subscribers)
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
+        """Возвращает результат сравнения (равно) количества подписчиков"""
         return int(self.channel_subscribers) == int(other.channel_subscribers)
 
     def print_info(self) -> None:
@@ -51,10 +59,12 @@ class Channel:
 
     @classmethod
     def get_service(cls):
+        """Возвращает объект для работы с YouTube API"""
         youtube = build('youtube', 'v3', developerKey=API_KEY)
         return youtube
 
-    def to_json(self, file_name):
+    def to_json(self, file_name) -> None:
+        """Сохраняет в файл значения атрибутов экземпляра Channel"""
         date = {'title': self.title, 'video_count': self.video_count, 'url': self.url}
         with open(file_name, 'w') as file:
             json.dump(date, file)
